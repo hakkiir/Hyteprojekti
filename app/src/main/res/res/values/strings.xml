@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Blood Sugar App </string>
+    <string name="open">Open</string>
+    //navigation open
+    <string name="close">Close</string>
+    //navigation close
+</resources>
