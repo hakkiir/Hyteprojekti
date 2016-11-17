@@ -1,6 +1,7 @@
 package ryhma1.hyteprojekti;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -8,8 +9,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    DatabaseHelper myDb;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -19,6 +23,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myDb = new DatabaseHelper(this);
 
         //set the fragment initially
         MainFragment fragment = new MainFragment();
@@ -26,6 +31,24 @@ public class MainActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+
+    /*      User datan napista lisäämisen logiikka
+
+            public void AddUserData(){
+                addUserDataButton.setOnClickListener(
+                        new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v){
+                                boolean isInserted = myDb.insertUserData(arg1,arg2,arg3,arg4,arg5);
+                                if(isInserted = true)
+                                    Toast.makeText(MainActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
+                                else
+                                     Toast.makeText(MainActivity.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                )
+        }
+    */
 
         //Navigation
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
