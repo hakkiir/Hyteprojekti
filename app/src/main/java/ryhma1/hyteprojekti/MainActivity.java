@@ -2,6 +2,7 @@ package ryhma1.hyteprojekti;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.BaseColumns;
 import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.database.sqlite.*;
 
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,6 +47,24 @@ public class MainActivity extends AppCompatActivity
     private Set<BluetoothDevice>pairedDevices;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+
+    public final class FeedReaderContract{
+        private FeedReaderContract(){}
+        public class FeedEntry implements BaseColumns{
+            public static final String TABLE_NAME="entry";
+            public static final String COLUMN_NAME_TITLE="title";
+            public static final String COLUMN_NAME_SUBTITLE="subtitle";
+        }
+    }
+    public static final String TEXT_TYPE="text";
+    public static final String COMMA_SEP=",";
+    public static final String SQL_CREaTE_ENTRIES=
+            "CREATE TABLE"+ FeedReaderContract.FeedEntry.TABLE_NAME+"("+
+                    FeedReaderContract.FeedEntry._ID + "INTEGER PRIMARY KEY,"+
+                    FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP+
+                    FeedReaderContract.FeedEntry.COLUMN_NAME_SUBTITLE + TEXT_TYPE+")";
+    public static final String SQL_DELETE_ENTRIES= "DROP TABLE IF EXISTS" + AppDB.FeedEntry.TABLE_NAME;
+
 
     NavigationView navigationView = null;
     ListView lv;
