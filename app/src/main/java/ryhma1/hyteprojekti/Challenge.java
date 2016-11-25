@@ -9,9 +9,10 @@ public class Challenge {
     int _id;
     String _name;
     int _activity;
-    float _bound1;
-    float _bound2;
+    double _bound1;
+    double _bound2;
     int _points;
+    int _level;
 
     //empty constructor
     public Challenge(){
@@ -19,29 +20,33 @@ public class Challenge {
     }
 
     //constructor
-    public Challenge(int id, String name, int activity, float bound1, float bound2, int points){
+    public Challenge(int id, String name, int activity, double bound1, double bound2, int points, int level){
         this._id = id;
         this._name = name;
         this._activity = activity;
         this._bound1 = bound1;
         this._bound2 = bound2;
         this._points = points;
+        this._level = level;
     }
     //constructor
-    public Challenge(String name, int activity, float bound1, float bound2, int points){
+    public Challenge(String name, int activity, double bound1, double bound2, int points, int level){
         this._name = name;
         this._activity = activity;
         this._bound1 = bound1;
         this._bound2 = bound2;
         this._points = points;
+        this._level = level;
     }
 
+
+
     //getting id
-    public int getID(){
+    public int getChallengeID(){
         return this._id;
     }
     //setting id
-    public void setID(int id){
+    public void setChallengeID(int id){
         this._id = id;
     }
     //getting challenge name
@@ -61,19 +66,19 @@ public class Challenge {
         this._activity = activity;
     }
     //getting bound1
-    public float getBound1(){
+    public double getBound1(){
         return this._bound1;
     }
     //setting bound1
-    public void getBound1(float bound1){
+    public void setBound1(float bound1){
         this._bound1 = bound1;
     }
     //getting bound2
-    public float getBound2(){
+    public double getBound2(){
         return this._bound2;
     }
     //setting bound2
-    public void getBound2(float bound2){
+    public void setBound2(float bound2){
         this._bound2 = bound2;
     }
     //getting challenge points
@@ -84,6 +89,13 @@ public class Challenge {
     public void setChallengePoints(int points){
         this._points = points;
     }
-
+    //getting challenge level
+    public int getChallengeLevel() {
+        return this._level;
+    }
+    //Setting challenge level
+    public void setChallengeLevel(int level) {
+        this._level = level;
+    }
 
 }
