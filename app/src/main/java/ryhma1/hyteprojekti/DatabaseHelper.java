@@ -25,13 +25,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String USER_TABLE = "User_table";
 
     //user table column names
-    public static final String USERID = "ID";
-    public static final String FIRSTNAME = "Firstname";
-    public static final String LASTNAME = "Lastname";
-    public static final String HEIGHT = "Height";
-    public static final String WEIGHT = "Weight";
-    public static final String USERS_POINTS = "Points";
+    public static final String USER_ID = "ID";
+    public static final String USER_FIRSTNAME = "Firstname";
+    public static final String USER_LASTNAME = "Lastname";
+    public static final String USER_HEIGHT = "Height";
+    public static final String USER_WEIGHT = "Weight";
+    public static final String USER_POINTS = "Points";
     public static final String USER_LEVEL = "Level";
+    public static final String USER_BOUND_1 = "Bound1";
+    public static final String USER_BOUND_2 = "Bound2";
+    public static final String USER_NORM_1 = "Norm1";
+    public static final String USER_NORM_2 = "Norm2";
 
     //challenges table name
     public static final String CHALLENGE_TABLE = "Challenge_table";
@@ -40,10 +44,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String CHALLENGE_ID = "ID";
     public static final String CHALLENGE_NAME = "Name";
     public static final String CHALLENGE_ACTIVITY = "Activity";
-    public static final String CHALLENGE_BOUND_1 = "Bound1";
-    public static final String CHALLENGE_BOUND_2 = "Bound2";
     public static final String CHALLENGE_POINTS = "Points";
     public static final String CHALLENGE_LEVEL = "LevelID";
+    public static final String CHALLENGE_DURATION = "Duration";
+    public static final String CHALLENGE_CLOCK  = "Clock";
 
     //data table name
     public static final String DATA_TABLE = "Data_table";
@@ -68,16 +72,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //Creating tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createUsers = "CREATE TABLE "+ USER_TABLE +"(" +USERID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+ FIRSTNAME +" TEXT,"+ LASTNAME +" TEXT," +
-                ""+ HEIGHT +" INTEGER,"+ WEIGHT +" INTEGER,"+ USERS_POINTS +"INTEGER, "+USER_LEVEL+" INTEGER," +
-                "FOREIGN KEY ("+USER_LEVEL+") REFERENCES "+LEVEL_TABLE+"("+LEVEL_ID+") )";
+        String createUsers = "CREATE TABLE "+ USER_TABLE +"(" +USER_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+ USER_FIRSTNAME +" TEXT,"+ USER_LASTNAME +" TEXT," +
+                ""+ USER_HEIGHT +" INTEGER,"+ USER_WEIGHT +" INTEGER,"+ USER_POINTS +"INTEGER, "+USER_LEVEL+" INTEGER," + USER_NORM_1 + "FLOAT" + USER_NORM_2 + "FLOAT" +USER_BOUND_1 +" FLOAT," +
+                ""+ USER_BOUND_2 +" FLOAT,"+ "FOREIGN KEY ("+USER_LEVEL+") REFERENCES "+LEVEL_TABLE+"("+LEVEL_ID+") )";
 
-        String createChallenges = "CREATE TABLE "+ CHALLENGE_TABLE +"("+ CHALLENGE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+ CHALLENGE_NAME +" TEXT,"+ CHALLENGE_ACTIVITY +" INTEGER,"+ CHALLENGE_BOUND_1 +" FLOAT," +
-                ""+ CHALLENGE_BOUND_2 +" FLOAT,"+ CHALLENGE_POINTS +" INTEGER, "+ CHALLENGE_LEVEL +" INTEGER, " +
-                "FOREIGN KEY ("+ CHALLENGE_LEVEL +") REFERENCES "+LEVEL_TABLE+"("+ LEVEL_ID +") )";
+        String createChallenges = "CREATE TABLE "+ CHALLENGE_TABLE +"("+ CHALLENGE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+ CHALLENGE_NAME +" TEXT,"+ CHALLENGE_ACTIVITY +" INTEGER,"+ CHALLENGE_POINTS +" INTEGER, "+ CHALLENGE_LEVEL +" INTEGER, " +
+                "FOREIGN KEY ("+ CHALLENGE_LEVEL +") REFERENCES "+LEVEL_TABLE+"("+ LEVEL_ID +") "+ CHALLENGE_DURATION + "INTEGER" + CHALLENGE_CLOCK + "TEXT" + ")";
 
-        String createDataTable = "CREATE TABLE "+ DATA_TABLE +" (" +DATA_BG+ " FLOAT PRIMARY KEY, "+TIME+" TIMESTAMP, "+DATA_USERID+" INTEGER, " +
-                "FOREIGN KEY ("+DATA_USERID+") REFERENCES "+USER_TABLE+"("+USERID+") )";
+        String createDataTable = "CREATE TABLE "+ DATA_TABLE +" (" +DATA_BG+ " FOAT PRIMARY KEY, "+TIME+" TIMESTAMP, "+DATA_USERID+" INTEGER, " +
+                "FOREIGN KEY ("+DATA_USERID+") REFERENCES "+USER_TABLE+"("+USER_ID+") )";
 
         String createLevelTable =" CREATE TABLE "+ LEVEL_TABLE +"("+ LEVEL_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+ LEVEL_POINT_LIMIT +", INTEGER)";
 
@@ -98,12 +101,59 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
 
         ContentValues values = new ContentValues();
+        values.put(USER_ID, 1);
+        values.put(USER_FIRSTNAME, "Petteri");
+        values.put(USER_LASTNAME, "Sylvänne");
+        values.put(USER_BOUND_1, 4);
+        values.put(USER_BOUND_2, 14);
+        values.put(USER_LEVEL, 1);
+        values.put(USER_POINTS, 100);
+        db.insert(USER_TABLE, null, values);
+
         values.put(CHALLENGE_NAME, "TestiHaaste");
         values.put(CHALLENGE_ACTIVITY, 4);
-        values.put(CHALLENGE_BOUND_1, 6 );
-        values.put(CHALLENGE_BOUND_2, 7.5);
         values.put(CHALLENGE_POINTS, 400);
         values.put(CHALLENGE_LEVEL, 1);
+        db.insert(CHALLENGE_TABLE, null, values);
+
+        values.put(CHALLENGE_ID, 1);
+        values.put(CHALLENGE_NAME, "Out of bed"); //Mittaa heti herättyäsi
+        values.put(CHALLENGE_ACTIVITY, 1);
+        values.put(CHALLENGE_POINTS, 100);
+        values.put(CHALLENGE_LEVEL, 1);
+        values.put(CHALLENGE_CLOCK, 9); //Kellon aika maksimissaan->Mittaus ennen aamu yhdeksää
+        db.insert(CHALLENGE_TABLE, null, values);
+
+        values.put(CHALLENGE_ID, 2);
+        values.put(CHALLENGE_NAME, "Rocksteady");//Pidä mittaukset raja-arvojen sisällä
+        values.put(CHALLENGE_ACTIVITY, 4);
+        values.put(CHALLENGE_POINTS, 1000);
+        values.put(CHALLENGE_LEVEL, 1);
+        values.put(CHALLENGE_DURATION, 1440); //Haasteen kesto minuuteissa->24 tuntia
+        db.insert(CHALLENGE_TABLE, null, values);
+
+        values.put(CHALLENGE_ID, 3);
+        values.put(CHALLENGE_NAME, "Time for bed"); //Mittaa nukkumaan mennessä
+        values.put(CHALLENGE_ACTIVITY, 1);
+        values.put(CHALLENGE_POINTS, 100);
+        values.put(CHALLENGE_LEVEL, 1);
+        values.put(CHALLENGE_CLOCK, 22);//Mittaus nukkumaan mennessä->ennen kello 22
+        db.insert(CHALLENGE_TABLE, null, values);
+
+        values.put(CHALLENGE_ID, 4);
+        values.put(CHALLENGE_NAME, "Delicious"); //Mittaa ennen ruokailua ja kahden tunnin päästä
+        values.put(CHALLENGE_ACTIVITY, 2);
+        values.put(CHALLENGE_POINTS, 200);
+        values.put(CHALLENGE_LEVEL, 1);
+        values.put(CHALLENGE_DURATION, 120); //Kesto lähtee ensimmäisestä mittauksesta ja kestää 2 tuntia
+        db.insert(CHALLENGE_TABLE, null, values);
+
+        values.put(CHALLENGE_ID, 5);
+        values.put(CHALLENGE_NAME, "Like a clock"); //Mittaa kahden tunnin välein
+        values.put(CHALLENGE_ACTIVITY, 4);
+        values.put(CHALLENGE_POINTS, 500);
+        values.put(CHALLENGE_LEVEL, 1);
+        values.put(CHALLENGE_DURATION, 960); //Hereillä olo aika 16 tuntia
         db.insert(CHALLENGE_TABLE, null, values);
 
     }
@@ -148,11 +198,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(FIRSTNAME, user.getFirstName()); //User name
-        values.put(LASTNAME, user.getLastName()); //user lastname
-        values.put(HEIGHT, user.getHeight()); //user height
-        values.put(WEIGHT, user.getWeight()); //user weight
-        values.put(USERS_POINTS, user.getUserPoints()); //user point
+        values.put(USER_FIRSTNAME, user.getFirstName()); //User name
+        values.put(USER_LASTNAME, user.getLastName()); //user lastname
+        values.put(USER_HEIGHT, user.getHeight()); //user height
+        values.put(USER_WEIGHT, user.getWeight()); //user weight
+        values.put(USER_POINTS, user.getUserPoints()); //user point
 
         db.insert(USER_TABLE, null, values);
         db.close(); //closing database connection
@@ -161,8 +211,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     User getUser(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(USER_TABLE, new String[] { USERID, FIRSTNAME, LASTNAME, HEIGHT, WEIGHT,
-                USERS_POINTS }, USERID + "=?",
+        Cursor cursor = db.query(USER_TABLE, new String[] { USER_ID, USER_FIRSTNAME, USER_LASTNAME, USER_HEIGHT, USER_WEIGHT,
+                USER_POINTS }, USER_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if(cursor != null)
             cursor.moveToFirst();
@@ -195,11 +245,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         values.put(CHALLENGE_ID, challenge.getChallengeID());
         values.put(CHALLENGE_NAME, challenge.getChallengename());
         values.put(CHALLENGE_ACTIVITY, challenge.getActivity());
-        values.put(CHALLENGE_BOUND_1, challenge.getBound1());
-        values.put(CHALLENGE_BOUND_2, challenge.getBound2());
         values.put(CHALLENGE_POINTS, challenge.getChallengePoints());
         values.put(CHALLENGE_LEVEL, challenge.getChallengePoints());
-
         db.insert(CHALLENGE_TABLE, null, values);
         db.close();
     }
@@ -210,7 +257,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(CHALLENGE_TABLE, new String[] {CHALLENGE_ID, CHALLENGE_NAME, CHALLENGE_ACTIVITY,
-                        CHALLENGE_BOUND_1, CHALLENGE_BOUND_2, CHALLENGE_POINTS, CHALLENGE_LEVEL}, CHALLENGE_ID + "=?",
+                        USER_BOUND_1, USER_BOUND_2, CHALLENGE_POINTS, CHALLENGE_LEVEL}, CHALLENGE_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if(cursor != null)
             cursor.moveToFirst();
@@ -251,6 +298,5 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     //getting
-
 
 }

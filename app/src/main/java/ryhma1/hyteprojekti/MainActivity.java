@@ -1,5 +1,6 @@
 package ryhma1.hyteprojekti;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.BaseColumns;
@@ -38,6 +39,18 @@ import java.io.OutputStreamWriter;
 import java.io.IOException;
 import java.util.concurrent.RunnableFuture;
 
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_ACTIVITY;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_CLOCK;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_DURATION;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_ID;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_LEVEL;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_NAME;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_POINTS;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_TABLE;
+import static ryhma1.hyteprojekti.DatabaseHelper.USER_BOUND_1;
+import static ryhma1.hyteprojekti.DatabaseHelper.USER_BOUND_2;
+import static ryhma1.hyteprojekti.DatabaseHelper.USER_LEVEL;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,7 +76,7 @@ public class MainActivity extends AppCompatActivity
                     FeedReaderContract.FeedEntry._ID + "INTEGER PRIMARY KEY,"+
                     FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP+
                     FeedReaderContract.FeedEntry.COLUMN_NAME_SUBTITLE + TEXT_TYPE+")";
-    public static final String SQL_DELETE_ENTRIES= "DROP TABLE IF EXISTS" + AppDB.FeedEntry.TABLE_NAME;
+    public static final String SQL_DELETE_ENTRIES= "DROP TABLE IF EXISTS" + FeedReaderContract.FeedEntry.TABLE_NAME;
 
 
     NavigationView navigationView = null;
@@ -135,6 +148,37 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void startChallenge(String id, String nameChallenge, String nameUser, String points, String durationChallenge, String durationUser, String clock,
+                               String min, String max, String Bound1, String bound2, String level, String activityChallenge, String activityUser){
+
+        id = CHALLENGE_ID;
+        nameChallenge = CHALLENGE_NAME;
+        points = CHALLENGE_POINTS;
+        durationChallenge = CHALLENGE_DURATION;
+        activityChallenge = CHALLENGE_ACTIVITY;
+        clock = CHALLENGE_CLOCK;
+        min = USER_BOUND_1;
+        max = USER_BOUND_2;
+        level = USER_LEVEL;
+
+        switch (level){
+            case "1": while(durationUser < durationChallenge || activityUser < activityChallenge){
+
+            }
+                break;
+            case "2": while(durationUser < durationChallenge || activityUser < activityChallenge){
+
+            }
+                break;
+            case "3": while(durationUser < durationChallenge || activityUser < activityChallenge){
+
+            }
+                break;
+            default:
+                break;
+        }
+    }
+
     public void on(View v){
         if (!BA.isEnabled()){
             Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -144,6 +188,7 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Jo päällä", Toast.LENGTH_LONG).show();
         }
     }
+
     public void off(View v){
         BA.disable();
         Toast.makeText(getApplicationContext(), "Pois päältä", Toast.LENGTH_LONG).show();
