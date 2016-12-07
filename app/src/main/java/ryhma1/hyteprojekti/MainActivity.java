@@ -106,22 +106,9 @@ public class MainActivity extends AppCompatActivity
 
         BA = BluetoothAdapter.getDefaultAdapter();
         lv = (ListView) findViewById(R.id.listView);
-    }
-        CountDownTimer cTimer = null;
-        void startTimer() {
-        cTimer = new CountDownTimer(30000, 1000) {
-            public void onTick(long millisUntilFinished) {
-            }
 
-            public void onFinish() {
-            }
-        };
-        cTimer.start();
     }
-    void cancelTimer(){
-        if(cTimer!=null)
-            cTimer.cancel();
-    }
+
     /*      User datan napista lisäämisen logiikka
 
             public void AddUserData(){
@@ -140,27 +127,8 @@ public class MainActivity extends AppCompatActivity
         }
     */
 
-        //Navigation
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open_nav, R.string.close_nav);
-
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-    }
-
-
     public void startChallenge(String id, String nameChallenge, String nameUser, String points, String durationChallenge, String durationUser, String clock,
-                               String min, String max, String Bound1, String bound2, String level, String activityChallenge, String activityUser) {
+                               String min, String max, String Bound1, String bound2, String level, String activityChallenge, String activityUser, ArrayList data) {
 
         id = CHALLENGE_ID;
         nameChallenge = CHALLENGE_NAME;
@@ -174,8 +142,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (level) {
             case "1":
-                while (durationUser != durationChallenge || activityUser != activityChallenge) {
-                    durationUser = durationUser +
+                while (durationUser != durationChallenge || activityUser != activityChallenge || data.size()!=1) {
 
                 }
                 break;
@@ -368,25 +335,5 @@ public class MainActivity extends AppCompatActivity
                 .setObject(object)
                 .setActionStatus(Action.STATUS_TYPE_COMPLETED)
                 .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
     }
 }
