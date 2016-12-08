@@ -9,10 +9,10 @@ public class Challenge {
     int _id;
     String _name;
     int _activity;
-    double _bound1;
-    double _bound2;
     int _points;
     int _level;
+    int _duration;
+    String _clock;
 
     //empty constructor
     public Challenge(){
@@ -20,23 +20,23 @@ public class Challenge {
     }
 
     //constructor
-    public Challenge(int id, String name, int activity, double bound1, double bound2, int points, int level){
+    public Challenge(int id, String name, int activity, int points, int level, int duration, String clock){
         this._id = id;
         this._name = name;
         this._activity = activity;
-        this._bound1 = bound1;
-        this._bound2 = bound2;
         this._points = points;
         this._level = level;
+        this._duration = duration;
+        this._clock = clock;
     }
     //constructor
-    public Challenge(String name, int activity, double bound1, double bound2, int points, int level){
+    public Challenge(String name, int activity, int points, int level, int duration, String clock){
         this._name = name;
         this._activity = activity;
-        this._bound1 = bound1;
-        this._bound2 = bound2;
         this._points = points;
         this._level = level;
+        this._duration = duration;
+        this._clock = clock;
     }
 
 
@@ -65,22 +65,6 @@ public class Challenge {
     public void setActivity(int activity){
         this._activity = activity;
     }
-    //getting bound1
-    public double getBound1(){
-        return this._bound1;
-    }
-    //setting bound1
-    public void setBound1(float bound1){
-        this._bound1 = bound1;
-    }
-    //getting bound2
-    public double getBound2(){
-        return this._bound2;
-    }
-    //setting bound2
-    public void setBound2(float bound2){
-        this._bound2 = bound2;
-    }
     //getting challenge points
     public int getChallengePoints(){
         return this._points;
@@ -97,5 +81,20 @@ public class Challenge {
     public void setChallengeLevel(int level) {
         this._level = level;
     }
-
+    //get duration
+    public int getDuration(){
+        return this._duration;
+    }
+    //set duration
+    public void setDuration(int duration){
+        this._duration = duration;
+    }
+    //get clock
+    public String getClock(){
+        return this._clock;
+    }
+    //set clock
+    public void setClock(String clock){
+        this._clock = clock;
+    }
 }

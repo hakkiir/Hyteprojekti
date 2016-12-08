@@ -6,12 +6,14 @@
 
 
     <TextView
+        android:text="Active challenges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SISÄLTÖ"
+        android:layout_marginTop="40dp"
+        android:id="@+id/menu_challenges"
+        android:textSize="30sp"
+        android:fontFamily="serif-monospace"
         android:background="@color/colorAccent"
-        android:textSize="28sp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
-
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
