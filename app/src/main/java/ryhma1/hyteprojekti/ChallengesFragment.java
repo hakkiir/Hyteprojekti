@@ -35,11 +35,57 @@ public class ChallengesFragment extends Fragment {
         int taso = challenge.getChallengeLevel();
         TextView haaste = (TextView) view.findViewById(R.id.haaste1) ;
 
+
+        Challenge challenge2 = db.getChallenge(2);
+        String name2 = challenge2.getChallengename();
+        int kerrat2 = challenge2.getActivity();
+        int pisteet2 = challenge2.getChallengePoints();
+        int taso2 = challenge2.getChallengeLevel();
+        TextView haaste2 = (TextView) view.findViewById(R.id.haaste2) ;
+
+        Challenge challenge3 = db.getChallenge(3);
+        String name3 = challenge3.getChallengename();
+        int kerrat3 = challenge3.getActivity();
+        int pisteet3 = challenge3.getChallengePoints();
+        int taso3 = challenge3.getChallengeLevel();
+        TextView haaste3 = (TextView) view.findViewById(R.id.haaste3) ;
+
         haaste.setText("Haaste: "+name+"\n" +
                 "Mittauskerrat: "+kerrat+"\n" +
                 "Pisteet: "+pisteet+"\n" +
                 "Taso: "+taso+"");
+        haaste2.setText("Haaste: "+name2+"\n" +
+                "Mittauskerrat: "+kerrat2+"\n" +
+                "Pisteet: "+pisteet2+"\n" +
+                "Taso: "+taso2+"");
+        haaste3.setText("Haaste: "+name3+"\n" +
+                "Mittauskerrat: "+kerrat3+"\n" +
+                "Pisteet: "+pisteet3+"\n" +
+                "Taso: "+taso3+"");
 
+         /*
+
+        for (int i = 1; i < 6; i++ ){
+            Challenge challenge = db.getChallenge(i);
+
+            String name = challenge.getChallengename();
+            int kerrat = challenge.getActivity();
+            int pisteet = challenge.getChallengePoints();
+            int taso = challenge.getChallengeLevel();
+            if (i == 0) {
+                TextView haaste = (TextView) view.findViewById(R.id.haaste1);
+            }else if (i == 1){
+                TextView haaste = (TextView) view.findViewById(R.id.haaste2);
+            }else if (i == 2){
+                TextView haaste = (TextView) view.findViewById(R.id.haaste3);
+            }else if (i == 3){
+                TextView haaste = (TextView) view.findViewById(R.id.haaste4);
+            }else if (i == 4){
+                TextView haaste = (TextView) view.findViewById(R.id.haaste5);
+        }
+
+        }
+        */
         return view;
     }
 

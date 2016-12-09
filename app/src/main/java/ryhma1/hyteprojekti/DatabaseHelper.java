@@ -111,6 +111,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
         ContentValues values = new ContentValues();
+        values.put(USER_ID, 1);
+        values.put(USER_FIRSTNAME, "Testi");
+        values.put(USER_LASTNAME, "Henkilö");
+        values.put(USER_HEIGHT, 180);
+        values.put(USER_WEIGHT, 80);
+        values.put(USER_POINTS, 0);
+        values.put(USER_LEVEL, 1);
+        values.put(USER_BOUND_1, 7);
+        values.put(USER_BOUND_2, 12);
+        db.insert(USER_TABLE, null, values);
+
+        values.put(NORM_1, 5);
+        values.put(NORM_2, 7);
+        db.insert(NORM_TABLE, null, values);
+
         values.put(CHALLENGE_ID, 1);
         values.put(CHALLENGE_NAME, "Out of bed"); //Mittaa heti herättyäsi
         values.put(CHALLENGE_ACTIVITY, 1);
