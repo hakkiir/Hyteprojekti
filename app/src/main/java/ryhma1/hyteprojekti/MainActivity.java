@@ -145,31 +145,35 @@ public class MainActivity extends AppCompatActivity
         haaste1.setText("Tähän haasteen tiedot");*/
 }
 
-    public void startChallenge(String id, String nameChallenge, String nameUser, String points, String durationChallenge, String durationUser, String clock,
-                               String min, String max, String Bound1, String bound2, String level, String activityChallenge, String activityUser, ArrayList data) {
+    public void startChallenge() {
+        Challenge challenge = new Challenge();
+        User user = new User();
 
-        id = CHALLENGE_ID;
-        nameChallenge = CHALLENGE_NAME;
-        points = CHALLENGE_POINTS;
-        durationChallenge = CHALLENGE_DURATION;
-        activityChallenge = CHALLENGE_ACTIVITY;
-        clock = CHALLENGE_CLOCK;
-        min = USER_BOUND_1;
-        max = USER_BOUND_2;
-        level = USER_LEVEL;
+        int id = challenge._id;
+        String nameChallenge = challenge.getChallengename();
+        int points = challenge.getChallengePoints();
+        int durationChallenge = challenge.getDuration();
+        int activityChallenge = challenge.getActivity();
+        String clock = challenge.getClock();
+        double min = user.getBound1();
+        double max = user.getBound2();
+        int level = user.getLevel();
+        ArrayList data = new ArrayList();
+        int activityUser = data.size();
+
 
         switch (level) {
-            case "1":
+            case 1:
                 while (durationUser != durationChallenge || activityUser != activityChallenge || data.size()!=1) {
 
                 }
                 break;
-            case "2":
+            case 2:
                 while (durationUser != durationChallenge || activityUser != activityChallenge) {
 
                 }
                 break;
-            case "3":
+            case 3:
                 while (durationUser != durationChallenge || activityUser != activityChallenge) {
 
                 }
