@@ -71,14 +71,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        SQLiteDatabase db = getWritableDatabase();
+        /*SQLiteDatabase db = getWritableDatabase();*/
     }
 
     //Creating tables
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createUsers = "CREATE TABLE "+ USER_TABLE +"(" +USER_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+ USER_FIRSTNAME +" TEXT,"+ USER_LASTNAME +" TEXT," +
-                ""+ USER_HEIGHT +" INTEGER,"+ USER_WEIGHT +" INTEGER,"+ USER_POINTS +"INTEGER, "+USER_LEVEL+" INTEGER, " +USER_BOUND_1 +" DOUBLE," +
+                ""+ USER_HEIGHT +" INTEGER,"+ USER_WEIGHT +" INTEGER,"+ USER_POINTS +" INTEGER, "+USER_LEVEL+" INTEGER, " +USER_BOUND_1 +" DOUBLE," +
                 ""+ USER_BOUND_2 +" DOUBLE, FOREIGN KEY ("+USER_LEVEL+") REFERENCES "+LEVEL_TABLE+"("+LEVEL_ID+") )";
 
         String createChallenges = "CREATE TABLE "+ CHALLENGE_TABLE +"("+ CHALLENGE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+ CHALLENGE_NAME +" TEXT,"+ CHALLENGE_ACTIVITY +" INTEGER,"+ CHALLENGE_POINTS +" INTEGER, "+ CHALLENGE_LEVEL +" INTEGER, " +
@@ -109,7 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
 
 
-
+        /*
         ContentValues values = new ContentValues();
         values.put(USER_ID, 1);
         values.put(USER_FIRSTNAME, "Testi");
@@ -166,7 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         values.put(CHALLENGE_LEVEL, 1);
         values.put(CHALLENGE_DURATION, 960); //Hereillä olo aika 16 tuntia
         db.insert(CHALLENGE_TABLE, null, values);
-
+        */
     }
 
 
@@ -209,11 +209,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(USER_ID, user.getUserID());
         values.put(USER_FIRSTNAME, user.getFirstName()); //User name
         values.put(USER_LASTNAME, user.getLastName()); //user lastname
         values.put(USER_HEIGHT, user.getHeight()); //user height
         values.put(USER_WEIGHT, user.getWeight()); //user weight
         values.put(USER_POINTS, user.getUserPoints()); //user point
+        values.put(USER_LEVEL, user.getLevel()); //user point
+        values.put(USER_BOUND_1, user.getBound1()); //user point
+        values.put(USER_BOUND_2, user.getBound2()); //user point
 
         db.insert(USER_TABLE, null, values);
         db.close(); //closing database connection
@@ -223,7 +227,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(USER_TABLE, new String[] { USER_ID, USER_FIRSTNAME, USER_LASTNAME, USER_HEIGHT, USER_WEIGHT,
-                USER_POINTS, USER_LEVEL, USER_BOUND_1, USER_BOUND_2}, USER_ID + "=?",
+                        USER_POINTS, USER_LEVEL, USER_BOUND_1, USER_BOUND_2}, USER_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if(cursor != null)
             cursor.moveToFirst();
@@ -232,8 +236,37 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)),Integer.parseInt(cursor.getString(5)),Integer.parseInt(cursor.getString(6)),Double.parseDouble(cursor.getString(7)), Double.parseDouble(cursor.getString(8)));
         //return user
         return user;
+    }
+
+    //getting all users
+    public List<User> getAllUsers(){
+        List<User> userList = new ArrayList<User>();
+
+        String selectQuery = " SELECT * FROM " +USER_TABLE;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        //looping through all rows and adding to list
+        if(cursor.moveToFirst()) {
+            do {
+                User user = new User();
+                user.setUserID(Integer.parseInt(cursor.getString(0)));
+                user.setFirstName(cursor.getString(1));
+                user.setLastName(cursor.getString(2));
+                user.setWeight(Integer.parseInt(cursor.getString(3)));
+                user.setHeight(Integer.parseInt(cursor.getString(4)));
+                user.setUserPoints(Integer.parseInt(cursor.getString(5)));
+                user.setUserLevel(Integer.parseInt(cursor.getString(6)));
+                user.setBound1(Integer.parseInt(cursor.getString(7)));
+                user.setBound2(Integer.parseInt(cursor.getString(8)));
+
+                userList.add(user);
+            } while (cursor.moveToNext());
         }
 
+        return  userList;
+    }
     //adding new level
 
     void addLevel(Level level) {
@@ -258,6 +291,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         values.put(CHALLENGE_ACTIVITY, challenge.getActivity());
         values.put(CHALLENGE_POINTS, challenge.getChallengePoints());
         values.put(CHALLENGE_LEVEL, challenge.getChallengePoints());
+        values.put(CHALLENGE_DURATION, challenge.getChallengePoints());
+        values.put(CHALLENGE_CLOCK, challenge.getChallengePoints());
         db.insert(CHALLENGE_TABLE, null, values);
         db.close();
     }
@@ -289,20 +324,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         //looping through all rows and adding to list
-        if(cursor.moveToFirst()) {
-            do {
-                Challenge challenge = new Challenge();
-                challenge.setChallengeID(Integer.parseInt(cursor.getString(0)));
-                challenge.setChallengeName(cursor.getString(1));
-                challenge.setActivity(Integer.parseInt(cursor.getString(2)));
-                challenge.setChallengePoints(Integer.parseInt(cursor.getString(5)));
-                challenge.setChallengeLevel(Integer.parseInt(cursor.getString(6)));
-                challenge.setDuration(Integer.parseInt(cursor.getString(6)));
-                challenge.setClock(cursor.getString(6));
+        if(cursor.moveToFirst()) do {
+            Challenge challenge = new Challenge();
+            challenge.setChallengeID(Integer.parseInt(cursor.getString(0)));
+            challenge.setChallengeName(cursor.getString(1));
+            challenge.setActivity(Integer.parseInt(cursor.getString(2)));
+            challenge.setChallengePoints(Integer.parseInt(cursor.getString(5)));
+            challenge.setChallengeLevel(Integer.parseInt(cursor.getString(6)));
+            challenge.setDuration(Integer.parseInt(cursor.getString(7)));
+            challenge.setClock(cursor.getString(8));
 
-                challengeList.add(challenge);
-            } while (cursor.moveToNext());
-        }
+            challengeList.add(challenge);
+        } while (cursor.moveToNext());
 
         return  challengeList;
     }

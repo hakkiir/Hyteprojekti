@@ -50,6 +50,20 @@ public class ChallengesFragment extends Fragment {
         int taso3 = challenge3.getChallengeLevel();
         TextView haaste3 = (TextView) view.findViewById(R.id.haaste3) ;
 
+        Challenge challenge4 = db.getChallenge(4);
+        String name4 = challenge4.getChallengename();
+        int kerrat4 = challenge4.getActivity();
+        int pisteet4 = challenge4.getChallengePoints();
+        int taso4 = challenge4.getChallengeLevel();
+        TextView haaste4 = (TextView) view.findViewById(R.id.haaste4) ;
+
+        Challenge challenge5 = db.getChallenge(5);
+        String name5 = challenge5.getChallengename();
+        int kerrat5 = challenge5.getActivity();
+        int pisteet5 = challenge5.getChallengePoints();
+        int taso5 = challenge5.getChallengeLevel();
+        TextView haaste5 = (TextView) view.findViewById(R.id.haaste5) ;
+
         haaste.setText("Haaste: "+name+"\n" +
                 "Mittauskerrat: "+kerrat+"\n" +
                 "Pisteet: "+pisteet+"\n" +
@@ -62,6 +76,15 @@ public class ChallengesFragment extends Fragment {
                 "Mittauskerrat: "+kerrat3+"\n" +
                 "Pisteet: "+pisteet3+"\n" +
                 "Taso: "+taso3+"");
+        haaste4.setText("Haaste: "+name4+"\n" +
+                "Mittauskerrat: "+kerrat4+"\n" +
+                "Pisteet: "+pisteet4+"\n" +
+                "Taso: "+taso4+"");
+        haaste5.setText("Haaste: "+name5+"\n" +
+                "Mittauskerrat: "+kerrat5+"\n" +
+                "Pisteet: "+pisteet5+"\n" +
+                "Taso: "+taso5+"");
+
 
          /*
 

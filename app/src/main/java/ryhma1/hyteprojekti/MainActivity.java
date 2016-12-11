@@ -38,6 +38,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.UUID;
@@ -139,37 +140,67 @@ public class MainActivity extends AppCompatActivity
 
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //creating user
 
+
+        List<User> users = myDb.getAllUsers();
+
+        //create test user if doesn't exist
+        if(users.size() < 1){
+            myDb.addUser(new User (1, "Testi", "Henkilö", 180, 80, 0, 1, 7, 12));
+        }
+
+
+
+
+        //creating challenges if doesn't exist
+        List<Challenge> challenges =  myDb.getAllChallenges();
+
+        if (challenges.size() < 1){
+            myDb.addChallenge(new Challenge (1, "Out of bed", 1, 100, 1, 0, "9" ));
+            myDb.addChallenge(new Challenge (2, "Rocksteady", 4, 1000, 1, 0, "9" ));
+            myDb.addChallenge(new Challenge (3, "Time for bed", 1, 100, 1, 0, "9" ));
+            myDb.addChallenge(new Challenge (4, "Delicious", 1, 100, 1, 0, "9" ));
+            myDb.addChallenge(new Challenge (5, "Like a clock", 1, 100, 1, 0, "9" ));
+
+
+        }
 /*
         TextView haaste1 = (TextView) findViewById(R.id.haaste1);
         haaste1.setText("Tähän haasteen tiedot");*/
+
 }
 
-    public void startChallenge(String id, String nameChallenge, String nameUser, String points, String durationChallenge, String durationUser, String clock,
-                               String min, String max, String Bound1, String bound2, String level, String activityChallenge, String activityUser, ArrayList data) {
+    public void startChallenge() {
+        Challenge challenge = new Challenge();
+        User user = new User();
 
-        id = CHALLENGE_ID;
-        nameChallenge = CHALLENGE_NAME;
-        points = CHALLENGE_POINTS;
-        durationChallenge = CHALLENGE_DURATION;
-        activityChallenge = CHALLENGE_ACTIVITY;
-        clock = CHALLENGE_CLOCK;
-        min = USER_BOUND_1;
-        max = USER_BOUND_2;
-        level = USER_LEVEL;
+        int id = challenge._id;
+        String nameChallenge = challenge.getChallengename();
+        int points = challenge.getChallengePoints();
+        int durationChallenge = challenge.getDuration();
+        int activityChallenge = challenge.getActivity();
+        String clock = challenge.getClock();
+        double min = user.getBound1();
+        double max = user.getBound2();
+        int level = user.getLevel();
+        ArrayList data = new ArrayList();
+        int activityUser = data.size();
+
+        int durationUser = 0; // tähän jotain
 
         switch (level) {
-            case "1":
+            case 1:
                 while (durationUser != durationChallenge || activityUser != activityChallenge || data.size()!=1) {
 
                 }
                 break;
-            case "2":
+            case 2:
                 while (durationUser != durationChallenge || activityUser != activityChallenge) {
 
                 }
                 break;
-            case "3":
+            case 3:
                 while (durationUser != durationChallenge || activityUser != activityChallenge) {
 
                 }
