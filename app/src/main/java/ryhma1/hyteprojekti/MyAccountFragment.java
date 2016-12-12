@@ -26,62 +26,28 @@ public class MyAccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_account, container, false);
         DatabaseHelper db = new DatabaseHelper(getActivity());
 
-        Challenge challenge = db.getChallenge(1);
-        String name = challenge.getChallengename();
-        int kerrat = challenge.getActivity();
-        int pisteet = challenge.getChallengePoints();
-        int taso = challenge.getChallengeLevel();
-        TextView haaste = (TextView) view.findViewById(R.id.haaste1) ;
+        User user = db.getUser(1);
+        String name = user.getFirstName();
+        String lastname = user.getLastName();
+        int height = user.getHeight();
+        int weight = user.getWeight();
+        int points = user.getUserPoints();
+        int level = user.getLevel();
+        double bound1 = user.getBound1();
+        double bound2 = user.getBound2();
 
 
-        Challenge challenge2 = db.getChallenge(2);
-        String name2 = challenge2.getChallengename();
-        int kerrat2 = challenge2.getActivity();
-        int pisteet2 = challenge2.getChallengePoints();
-        int taso2 = challenge2.getChallengeLevel();
-        TextView haaste2 = (TextView) view.findViewById(R.id.haaste2) ;
+        TextView userData = (TextView) view.findViewById(R.id.userData) ;
 
-        Challenge challenge3 = db.getChallenge(3);
-        String name3 = challenge3.getChallengename();
-        int kerrat3 = challenge3.getActivity();
-        int pisteet3 = challenge3.getChallengePoints();
-        int taso3 = challenge3.getChallengeLevel();
-        TextView haaste3 = (TextView) view.findViewById(R.id.haaste3) ;
 
-        Challenge challenge4 = db.getChallenge(4);
-        String name4 = challenge4.getChallengename();
-        int kerrat4 = challenge4.getActivity();
-        int pisteet4 = challenge4.getChallengePoints();
-        int taso4 = challenge4.getChallengeLevel();
-        TextView haaste4 = (TextView) view.findViewById(R.id.haaste4) ;
+        userData.setText("Käyttäjä: "+name+ " "+lastname+"\n" +
+                "Pituus: "+height+"\n" +
+                "Paino: "+weight+"\n" +
+                "Pisteet: "+points+"\n" +
+                "Taso: "+level+"\n " +
+                "Rajat: "+bound1+" - "+bound2+" ");
 
-        Challenge challenge5 = db.getChallenge(5);
-        String name5 = challenge5.getChallengename();
-        int kerrat5 = challenge5.getActivity();
-        int pisteet5 = challenge5.getChallengePoints();
-        int taso5 = challenge5.getChallengeLevel();
-        TextView haaste5 = (TextView) view.findViewById(R.id.haaste5) ;
 
-        haaste.setText("Haaste: "+name+"\n" +
-                "Mittauskerrat: "+kerrat+"\n" +
-                "Pisteet: "+pisteet+"\n" +
-                "Taso: "+taso+"");
-        haaste2.setText("Haaste: "+name2+"\n" +
-                "Mittauskerrat: "+kerrat2+"\n" +
-                "Pisteet: "+pisteet2+"\n" +
-                "Taso: "+taso2+"");
-        haaste3.setText("Haaste: "+name3+"\n" +
-                "Mittauskerrat: "+kerrat3+"\n" +
-                "Pisteet: "+pisteet3+"\n" +
-                "Taso: "+taso3+"");
-        haaste4.setText("Haaste: "+name4+"\n" +
-                "Mittauskerrat: "+kerrat4+"\n" +
-                "Pisteet: "+pisteet4+"\n" +
-                "Taso: "+taso4+"");
-        haaste5.setText("Haaste: "+name5+"\n" +
-                "Mittauskerrat: "+kerrat5+"\n" +
-                "Pisteet: "+pisteet5+"\n" +
-                "Taso: "+taso5+"");
 
 
          /*

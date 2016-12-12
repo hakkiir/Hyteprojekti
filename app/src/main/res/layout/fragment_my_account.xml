@@ -5,7 +5,14 @@
     tools:context="ryhma1.hyteprojekti.MyAccountFragment">
 
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <TextView
+        android:text="TextView"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="56dp"
+        android:id="@+id/userData"
+        android:layout_width="wrap_content"
+        android:textSize="24sp" />
 </RelativeLayout>
