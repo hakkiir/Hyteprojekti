@@ -6,13 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChallengesFragment extends Fragment {
+public class ChallengesFragment extends Fragment{
 
 
     public ChallengesFragment() {
@@ -111,9 +112,5 @@ public class ChallengesFragment extends Fragment {
         */
         return view;
     }
-
-
-
-
 
 }

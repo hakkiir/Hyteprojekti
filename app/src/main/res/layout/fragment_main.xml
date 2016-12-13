@@ -6,14 +6,50 @@
 
 
     <TextView
-        android:text="Active challenges"
+        android:text="Aktiiviset haasteet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:id="@+id/menu_challenges"
         android:textSize="30sp"
         android:fontFamily="serif-monospace"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="Syötä uusi mittaustulos:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textSize="30sp"
+        android:fontFamily="serif-monospace"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/menu_challenges"
+        android:layout_marginTop="169dp"
+        android:layout_alignEnd="@+id/menu_challenges"
+        android:layout_alignStart="@+id/mittaustulos"
+        android:textStyle="normal|bold" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignStart="@+id/menu_challenges"
+        android:layout_marginTop="102dp"
+        android:id="@+id/mittaustulos" />
+
+    <Button
+        android:text="Lisää"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/mittaustulos"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginEnd="27dp"
+        android:id="@+id/addData"
+        android:background="@color/colorAccent" />
+
 </RelativeLayout>

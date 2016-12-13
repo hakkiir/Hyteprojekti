@@ -50,23 +50,13 @@ import java.io.IOException;
 import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.TimeUnit;
 
-import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_ACTIVITY;
-import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_CLOCK;
-import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_DURATION;
-import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_ID;
-import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_LEVEL;
-import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_NAME;
-import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_POINTS;
-import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_TABLE;
-import static ryhma1.hyteprojekti.DatabaseHelper.TIME;
-import static ryhma1.hyteprojekti.DatabaseHelper.USER_BOUND_1;
-import static ryhma1.hyteprojekti.DatabaseHelper.USER_BOUND_2;
-import static ryhma1.hyteprojekti.DatabaseHelper.USER_LEVEL;
+import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     DatabaseHelper myDb;
+    Button haasteButton1;
 
     private BluetoothAdapter BA;    /*Luodaan Bluetooth adapteri*/
     private Set<BluetoothDevice> pairedDevices;
@@ -140,6 +130,10 @@ public class MainActivity extends AppCompatActivity
 
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    haasteButton1 = (Button) findViewById(R.id.haasteButton1);
+        
+
+
         //creating user
 
 
@@ -147,7 +141,7 @@ public class MainActivity extends AppCompatActivity
 
         //create test user if doesn't exist
         if(users.size() < 1){
-            myDb.addUser(new User (1, "Testi", "Henkilö", 180, 80, 0, 1, 7, 12));
+            myDb.addUser(new User (1, "Testi", "Henkilö", 180, 80, 0, 1, 4, 12));
         }
 
 
@@ -165,17 +159,21 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+
+        myDb.addNormalValues(new NormalValues(4, 7));
 /*
         TextView haaste1 = (TextView) findViewById(R.id.haaste1);
         haaste1.setText("Tähän haasteen tiedot");*/
 
 }
 
+
+
     public void startChallenge() {
         Challenge challenge = new Challenge();
         User user = new User();
 
-        int id = challenge._id;
+        int id = challenge.getChallengeID();
         String nameChallenge = challenge.getChallengename();
         int points = challenge.getChallengePoints();
         int durationChallenge = challenge.getDuration();

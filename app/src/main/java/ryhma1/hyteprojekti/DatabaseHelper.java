@@ -109,6 +109,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
 
 
+
+
         /*
         ContentValues values = new ContentValues();
         values.put(USER_ID, 1);
@@ -203,6 +205,16 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 
+    void addNormalValues(NormalValues normalValues){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(NORM_1, normalValues.getNorm1());
+        values.put(NORM_2, normalValues.getNorm2());
+
+        db.insert(NORM_TABLE, null, values);
+        db.close();
+    }
 
     //adding new user
     void addUser(User user) {
@@ -329,10 +341,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             challenge.setChallengeID(Integer.parseInt(cursor.getString(0)));
             challenge.setChallengeName(cursor.getString(1));
             challenge.setActivity(Integer.parseInt(cursor.getString(2)));
-            challenge.setChallengePoints(Integer.parseInt(cursor.getString(5)));
-            challenge.setChallengeLevel(Integer.parseInt(cursor.getString(6)));
-            challenge.setDuration(Integer.parseInt(cursor.getString(7)));
-            challenge.setClock(cursor.getString(8));
+            challenge.setChallengePoints(Integer.parseInt(cursor.getString(3)));
+            challenge.setChallengeLevel(Integer.parseInt(cursor.getString(4)));
+            challenge.setDuration(Integer.parseInt(cursor.getString(5)));
+            challenge.setClock(cursor.getString(6));
 
             challengeList.add(challenge);
         } while (cursor.moveToNext());
