@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity
         Challenge challenge = new Challenge();
         User user = new User();
 
-        int id = challenge._id;
+        int id = challenge.getChallengeID();
         String nameChallenge = challenge.getChallengename();
         int points = challenge.getChallengePoints();
         int durationChallenge = challenge.getDuration();
@@ -189,9 +189,14 @@ public class MainActivity extends AppCompatActivity
 
         int durationUser = 0; // tähän jotain
 
-        switch (level) {
+        if (id == R.id.haaste1) {
+            while (activityUser < activityChallenge) {
+                activityUser = activityUser + activityUser;
+            }
+        }
+        /*switch (level) {
             case 1:
-                while (durationUser != durationChallenge || activityUser != activityChallenge || data.size()!=1) {
+                while (durationUser < durationChallenge || activityUser < activityChallenge || data.size()<1) {
 
                 }
                 break;
@@ -207,7 +212,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
     public void on(View v) {

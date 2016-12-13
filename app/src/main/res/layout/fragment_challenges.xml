@@ -48,7 +48,7 @@
         android:layout_height="65dp"
         android:id="@+id/haaste2"
         android:layout_weight="5.30"
-        android:layout_alignBottom="@+id/toggleButton4"
+        android:layout_alignBottom="@+id/haasteButton1"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -57,7 +57,7 @@
         android:layout_height="65dp"
         android:id="@+id/haaste3"
         android:layout_weight="2.60"
-        android:layout_alignTop="@+id/toggleButton5"
+        android:layout_alignTop="@+id/haasteButton2"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/haaste2" />
 
@@ -81,7 +81,7 @@
         android:text="Activate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/toggleButton3"
+        android:id="@+id/haasteButton1"
         android:checked="false"
         android:layout_marginEnd="19dp"
         android:layout_alignBottom="@+id/haaste1"
@@ -91,34 +91,34 @@
         android:text="Activate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/toggleButton4"
+        android:id="@+id/haasteButton2"
         android:layout_marginTop="39dp"
-        android:layout_below="@+id/toggleButton3"
-        android:layout_alignStart="@+id/toggleButton3" />
+        android:layout_below="@+id/haasteButton1"
+        android:layout_alignStart="@+id/haasteButton1" />
 
     <Button
         android:text="Activate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/toggleButton5"
+        android:id="@+id/haasteButton3"
         android:layout_marginTop="27dp"
-        android:layout_below="@+id/toggleButton4"
-        android:layout_alignStart="@+id/toggleButton4" />
+        android:layout_below="@+id/haasteButton2"
+        android:layout_alignStart="@+id/haasteButton2" />
 
     <Button
         android:text="Activate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/toggleButton6"
-        android:layout_above="@+id/haaste5"
-        android:layout_alignStart="@+id/toggleButton5" />
-
-    <Button
-        android:text="Activate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/toggleButton7"
+        android:id="@+id/haasteButton4"
         android:layout_alignBottom="@+id/haaste5"
-        android:layout_alignStart="@+id/toggleButton6" />
+        android:layout_alignStart="@+id/haasteButton5" />
+
+    <Button
+        android:text="Activate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/haasteButton5"
+        android:layout_above="@+id/haasteButton4"
+        android:layout_alignStart="@+id/haasteButton3" />
 
 </RelativeLayout>
