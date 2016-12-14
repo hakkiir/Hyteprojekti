@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,6 +73,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String LEVEL_ID = "LevelID";
     public static final String LEVEL_POINT_LIMIT = "Point_Limit";
 
+
+    //activechallenge
+    public static final String ACTIVE_TABLE = "Active_challenge";
+    public static final String ACTIVE_USERID = "UserID";
+    public static final String ACTIVE_CHALLENGE = "ACtiveChallenge";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         /*SQLiteDatabase db = getWritableDatabase();*/
@@ -100,11 +107,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         String createNormalValuesTable = "CREATE TABLE "+NORM_TABLE+" ("+NORM_1+" DOUBLE, "+NORM_2+" DOUBLE)";
 
+        String createActiveChallengeTable = "CREATE TABLE "+ACTIVE_TABLE+" ("+ACTIVE_USERID+" INT, "+ACTIVE_CHALLENGE+" INT," +
+                " FOREIGN KEY ("+ACTIVE_CHALLENGE+") REFERENCES "+CHALLENGE_TABLE+" ("+CHALLENGE_ID+") )";
+
         db.execSQL(createLevelTable);
         db.execSQL(createUsers);
         db.execSQL(createChallenges);
         db.execSQL(createDataTable);
         db.execSQL(createNormalValuesTable);
+        db.execSQL(createActiveChallengeTable);
 
         int j = 1000;
         for (int i = 1; i < 11; i++){
@@ -376,6 +387,29 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         long result = db.insert(DATA_TABLE, null, values);
 
         if(result == -1){
+            return false;
+        }else
+            return true;
+    }
+
+    public void makeActive(int userID, int challengeID){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        ContentValues values = new ContentValues();
+        values.put(ACTIVE_USERID, userID);
+        values.put(ACTIVE_CHALLENGE, challengeID);
+        db.insert(ACTIVE_TABLE, null, values);
+    }
+
+    public boolean checkActive(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectUser = "SELECT "+ACTIVE_USERID+" FROM "+ACTIVE_TABLE+"";
+
+        Cursor cursor = db.rawQuery(selectUser, null);
+
+        if(cursor != null){
             return false;
         }else
             return true;

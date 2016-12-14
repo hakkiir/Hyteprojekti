@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ChallengesFragment extends Fragment {
+
+    Button haasteButton1;
 
     public ChallengesFragment() {
         // Required empty public constructor
@@ -27,7 +30,7 @@ public class ChallengesFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_challenges, container, false);
-        DatabaseHelper db = new DatabaseHelper(getActivity());
+        final DatabaseHelper db = new DatabaseHelper(getActivity());
 
         Challenge challenge = db.getChallenge(1);
         String name = challenge.getChallengename();
@@ -84,6 +87,18 @@ public class ChallengesFragment extends Fragment {
                 "Mittauskerrat: " + kerrat5 + "\n" +
                 "Pisteet: " + pisteet5 + "\n" +
                 "Taso: " + taso5 + "");
+
+        haasteButton1 = (Button)view.findViewById(R.id.haasteButton1);
+
+        haasteButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).startChallenge(1);
+            }
+        });
+
+
+
 
 
          /*

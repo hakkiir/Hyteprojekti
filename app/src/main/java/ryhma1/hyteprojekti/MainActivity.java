@@ -169,11 +169,9 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    public void startChallenge() {
-        Challenge challenge = new Challenge();
-        User user = new User();
-
-        int id = challenge.getChallengeID();
+    public void startChallenge(int id) {
+        User user = myDb.getUser(1);
+        Challenge challenge = myDb.getChallenge(id);
         String nameChallenge = challenge.getChallengename();
         int points = challenge.getChallengePoints();
         int durationChallenge = challenge.getDuration();
@@ -187,12 +185,16 @@ public class MainActivity extends AppCompatActivity
 
         int durationUser = 0; // tähän jotain
 
-        if (id == R.id.haaste1) {
+
+
+        if (id == 1) {
+            myDb.makeActive(user.getUserID(), challenge.getChallengeID());
             while (activityUser < activityChallenge) {
                 activityUser = activityUser + activityUser;
             }
+
         }
-        /*switch (level) {
+        switch (level) {
             case 1:
                 while (durationUser < durationChallenge || activityUser < activityChallenge || data.size()<1) {
 
@@ -210,8 +212,15 @@ public class MainActivity extends AppCompatActivity
                 break;
             default:
                 break;
-        }*/
+        }
     }
+
+
+    public void active(){
+
+
+    }
+
 
     public void on(View v) {
         if (!BA.isEnabled()) {
