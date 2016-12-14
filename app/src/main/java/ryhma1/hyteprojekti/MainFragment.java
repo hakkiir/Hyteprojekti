@@ -38,8 +38,8 @@ public class MainFragment extends Fragment{
         addData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean isInserted =  db.insertData(1, Double.parseDouble(mittaustulos.getText().toString()));
-                if(isInserted = true){
+                boolean isInserted =  db.insertData(new Data(1,Double.parseDouble(mittaustulos.getText().toString())));
+                if(isInserted == true){
                     Toast.makeText(getActivity(), "Data lähetetty", Toast.LENGTH_LONG).show();
                 }else
                     Toast.makeText(getActivity(), "Datan lähetys epäonnistui", Toast.LENGTH_LONG).show();

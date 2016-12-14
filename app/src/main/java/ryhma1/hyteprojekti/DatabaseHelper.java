@@ -62,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     //data table columns
     public static final String DATA_USERID = "UserID";
-    public static final String DATA_BG ="Blood Glucose";
+    public static final String DATA_BG ="Blood_Glucose";
     public static final String TIME = "Time";
 
     //level table name
@@ -80,17 +80,23 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //Creating tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createUsers = "CREATE TABLE "+ USER_TABLE +"(" +USER_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+ USER_FIRSTNAME +" TEXT,"+ USER_LASTNAME +" TEXT," +
-                ""+ USER_HEIGHT +" INTEGER,"+ USER_WEIGHT +" INTEGER,"+ USER_POINTS +" INTEGER, "+USER_LEVEL+" INTEGER, " +USER_BOUND_1 +" DOUBLE," +
+        String createUsers = "CREATE TABLE "+ USER_TABLE +"(" +USER_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                USER_FIRSTNAME +" TEXT,"+ USER_LASTNAME +" TEXT," +
+                ""+ USER_HEIGHT +" INTEGER,"+ USER_WEIGHT +" INTEGER,"+ USER_POINTS +" INTEGER, "+USER_LEVEL+" INTEGER," +
+                " " +USER_BOUND_1 +" DOUBLE," +
                 ""+ USER_BOUND_2 +" DOUBLE, FOREIGN KEY ("+USER_LEVEL+") REFERENCES "+LEVEL_TABLE+"("+LEVEL_ID+") )";
 
-        String createChallenges = "CREATE TABLE "+ CHALLENGE_TABLE +"("+ CHALLENGE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+ CHALLENGE_NAME +" TEXT,"+ CHALLENGE_ACTIVITY +" INTEGER,"+ CHALLENGE_POINTS +" INTEGER, "+ CHALLENGE_LEVEL +" INTEGER, " +
-                ""+ CHALLENGE_DURATION + " INTEGER, "+ CHALLENGE_CLOCK +" TEXT, FOREIGN KEY ("+ CHALLENGE_LEVEL +") REFERENCES "+LEVEL_TABLE+"("+ LEVEL_ID +"))";
+        String createChallenges = "CREATE TABLE "+ CHALLENGE_TABLE +"("+ CHALLENGE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " "+ CHALLENGE_NAME +" TEXT,"+ CHALLENGE_ACTIVITY +" INTEGER," +
+                ""+ CHALLENGE_POINTS +" INTEGER, "+ CHALLENGE_LEVEL +" INTEGER, " +
+                ""+ CHALLENGE_DURATION + " INTEGER, "+ CHALLENGE_CLOCK +" TEXT," +
+                " FOREIGN KEY ("+ CHALLENGE_LEVEL +") REFERENCES "+LEVEL_TABLE+"("+ LEVEL_ID +"))";
 
-        String createDataTable = "CREATE TABLE "+ DATA_TABLE +" (" +DATA_BG+ " DOUBLE PRIMARY KEY,"+DATA_USERID+" INTEGER, " +
-                "FOREIGN KEY ("+DATA_USERID+") REFERENCES "+USER_TABLE+"("+USER_ID+") )";
 
-        String createLevelTable =" CREATE TABLE "+ LEVEL_TABLE +"("+ LEVEL_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+ LEVEL_POINT_LIMIT +", INTEGER)";
+        String createDataTable = "CREATE TABLE "+ DATA_TABLE +" (" +DATA_BG+ " DOUBLE, "+TIME+" TIMESTAMP)";
+
+        String createLevelTable =" CREATE TABLE "+ LEVEL_TABLE +"("+ LEVEL_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " "+ LEVEL_POINT_LIMIT +", INTEGER)";
 
         String createNormalValuesTable = "CREATE TABLE "+NORM_TABLE+" ("+NORM_1+" DOUBLE, "+NORM_2+" DOUBLE)";
 
@@ -358,16 +364,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     //insert data
 
-    public boolean insertData(int userID, double bgValue){
+    public boolean insertData(Data data){
         SQLiteDatabase db = this.getWritableDatabase();
-      /*  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentDateTime = dateFormat.format(new Date()); // Find todays date*/
 
 
         ContentValues values = new ContentValues();
-        values.put(DATA_USERID, userID);
-        values.put(DATA_BG, bgValue);
-       /* values.put(TIME, currentDateTime);*/
+        values.put(DATA_BG, data.getBloodGlucose());
+        values.put(TIME, currentDateTime);
         long result = db.insert(DATA_TABLE, null, values);
 
         if(result == -1){
