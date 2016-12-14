@@ -37,7 +37,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 */
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.Timer;
@@ -50,13 +52,23 @@ import java.io.IOException;
 import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.TimeUnit;
 
-import android.widget.Button;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_ACTIVITY;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_CLOCK;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_DURATION;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_ID;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_LEVEL;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_NAME;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_POINTS;
+import static ryhma1.hyteprojekti.DatabaseHelper.CHALLENGE_TABLE;
+import static ryhma1.hyteprojekti.DatabaseHelper.TIME;
+import static ryhma1.hyteprojekti.DatabaseHelper.USER_BOUND_1;
+import static ryhma1.hyteprojekti.DatabaseHelper.USER_BOUND_2;
+import static ryhma1.hyteprojekti.DatabaseHelper.USER_LEVEL;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
     DatabaseHelper myDb;
-    Button haasteButton1;
 
     private BluetoothAdapter BA;    /*Luodaan Bluetooth adapteri*/
     private Set<BluetoothDevice> pairedDevices;
@@ -130,10 +142,6 @@ public class MainActivity extends AppCompatActivity
 
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    haasteButton1 = (Button) findViewById(R.id.haasteButton1);
-        
-
-
         //creating user
 
 
@@ -141,7 +149,7 @@ public class MainActivity extends AppCompatActivity
 
         //create test user if doesn't exist
         if(users.size() < 1){
-            myDb.addUser(new User (1, "Testi", "Henkilö", 180, 80, 0, 1, 4, 12));
+            myDb.addUser(new User (1, "Testi", "Henkilö", 180, 80, 0, 1, 7, 12));
         }
 
 
@@ -159,15 +167,11 @@ public class MainActivity extends AppCompatActivity
 
 
         }
-
-        myDb.addNormalValues(new NormalValues(4, 7));
 /*
         TextView haaste1 = (TextView) findViewById(R.id.haaste1);
         haaste1.setText("Tähän haasteen tiedot");*/
 
 }
-
-
 
     public void startChallenge() {
         Challenge challenge = new Challenge();
@@ -190,6 +194,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.haaste1) {
             while (activityUser < activityChallenge) {
                 activityUser = activityUser + activityUser;
+                data.add(getMittaustulos());
             }
         }
         /*switch (level) {
@@ -228,6 +233,12 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(getApplicationContext(), "Pois päältä", Toast.LENGTH_LONG).show();
     }
 
+    public double getMittaustulos(){
+        EditText tulos = (EditText) findViewById(R.id.mittaustulos);
+        String tulokset = tulos.getText().toString();
+        double loppu = Double.parseDouble(tulokset);
+        return loppu;
+    }
     public void visible(View v) {
         Intent getVisible = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         startActivityForResult(getVisible, 0);
@@ -284,7 +295,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    //Tiedostoon kirjoitus
     public void Write(View v) {
         try {
             FileOutputStream fileout = openFileOutput("DataSave.txt", MODE_PRIVATE); //Avaa tiedoston ja kirjoittaa message-muuttujan tiedostoon
@@ -295,7 +306,7 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
-
+    //Tiedostosta luku
     public void Read(View v) {
         try {
             FileInputStream fileIn = openFileInput("DataSave.txt");
@@ -313,7 +324,7 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
-
+    //BT-yhteyden avaus
     public void openBT() throws IOException {
         UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //Standardi sarjaportti ID
         BTSocket = BTDevice.createRfcommSocketToServiceRecord(uuid);
@@ -322,7 +333,7 @@ public class MainActivity extends AppCompatActivity
         BTOutputStream = BTSocket.getOutputStream();
         beginListenForData();
     }
-
+    //BT-datan kuuntelu
     void beginListenForData() {
         final Handler handler = new Handler();
         final byte delimiter = 10;  //ASCII koodi rivinvaihdolle
@@ -366,30 +377,11 @@ public class MainActivity extends AppCompatActivity
         BTThread.start();
 
     }
-
+    //BT-yhteyden sulkeminen
     void closeBT() throws IOException {
         stopWorker = true;        //Suljetaan BT yhteys
         BTInputStream.close();
         BTOutputStream.close();
         BTSocket.close();
     }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    /*
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("Main Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-     }
-                */
-
 }

@@ -6,15 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChallengesFragment extends Fragment{
-
+public class ChallengesFragment extends Fragment {
 
     public ChallengesFragment() {
         // Required empty public constructor
@@ -35,7 +33,6 @@ public class ChallengesFragment extends Fragment{
         int pisteet = challenge.getChallengePoints();
         int taso = challenge.getChallengeLevel();
         TextView haaste = (TextView) view.findViewById(R.id.haaste1) ;
-
 
         Challenge challenge2 = db.getChallenge(2);
         String name2 = challenge2.getChallengename();
@@ -112,5 +109,4 @@ public class ChallengesFragment extends Fragment{
         */
         return view;
     }
-
 }
