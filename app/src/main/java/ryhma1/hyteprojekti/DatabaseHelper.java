@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -84,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         String createChallenges = "CREATE TABLE "+ CHALLENGE_TABLE +"("+ CHALLENGE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+ CHALLENGE_NAME +" TEXT,"+ CHALLENGE_ACTIVITY +" INTEGER,"+ CHALLENGE_POINTS +" INTEGER, "+ CHALLENGE_LEVEL +" INTEGER, " +
                 ""+ CHALLENGE_DURATION + " INTEGER, "+ CHALLENGE_CLOCK +" TEXT, FOREIGN KEY ("+ CHALLENGE_LEVEL +") REFERENCES "+LEVEL_TABLE+"("+ LEVEL_ID +"))";
 
-        String createDataTable = "CREATE TABLE "+ DATA_TABLE +" (" +DATA_BG+ " FOAT PRIMARY KEY, "+TIME+" TIMESTAMP, "+DATA_USERID+" INTEGER, " +
+        String createDataTable = "CREATE TABLE "+ DATA_TABLE +" (" +DATA_BG+ " DOUBLE PRIMARY KEY,"+DATA_USERID+" INTEGER, " +
                 "FOREIGN KEY ("+DATA_USERID+") REFERENCES "+USER_TABLE+"("+USER_ID+") )";
 
         String createLevelTable =" CREATE TABLE "+ LEVEL_TABLE +"("+ LEVEL_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+ LEVEL_POINT_LIMIT +", INTEGER)";
@@ -353,6 +356,24 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 
-    //getting
+    //insert data
+
+    public boolean insertData(int userID, double bgValue){
+        SQLiteDatabase db = this.getWritableDatabase();
+      /*  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentDateTime = dateFormat.format(new Date()); // Find todays date*/
+
+
+        ContentValues values = new ContentValues();
+        values.put(DATA_USERID, userID);
+        values.put(DATA_BG, bgValue);
+       /* values.put(TIME, currentDateTime);*/
+        long result = db.insert(DATA_TABLE, null, values);
+
+        if(result == -1){
+            return false;
+        }else
+            return true;
+    }
 
 }
