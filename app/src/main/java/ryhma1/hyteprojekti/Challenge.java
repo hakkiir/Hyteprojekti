@@ -1,5 +1,10 @@
 package ryhma1.hyteprojekti;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import android.os.CountDownTimer;
 /**
  * Created by Iiro on 17.11.2016.
  */
@@ -38,7 +43,11 @@ public class Challenge {
         this._duration = duration;
         this._clock = clock;
     }
+    class MyTimerTask extends TimerTask{
+        public void run(){
 
+        }
+    }
 
 
     //getting id
@@ -82,18 +91,28 @@ public class Challenge {
         this._level = level;
     }
     //get duration
-    public int getDuration(){
-        return this._duration;
-    }
+    public int getDuration(){return this._duration;}
     //set duration
     public void setDuration(int duration){
-        this._duration = duration;
+        CountDownTimer myTimer = new CountDownTimer(this._duration, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long sekunti = millisUntilFinished / 1000;
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
     }
     //get clock
     public String getClock(){
-        return this._clock;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH");
+            String currentDateTime = dateFormat.format(new Date());
+            return currentDateTime;
     }
-    //set clock
     public void setClock(String clock){
         this._clock = clock;
     }

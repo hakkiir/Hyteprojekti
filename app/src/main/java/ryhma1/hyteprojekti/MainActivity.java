@@ -11,7 +11,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -55,12 +54,9 @@ import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
     DatabaseHelper myDb;
     Button haasteButton1;
-    /*EditText mittaustulos = (EditText)findViewById(R.id.mittaustulos);
-    Button addData = (Button)findViewById(R.id.addData);*/
-
 
     private BluetoothAdapter BA;    /*Luodaan Bluetooth adapteri*/
     private Set<BluetoothDevice> pairedDevices;
@@ -92,15 +88,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
 
-
         //set the fragment initially
         MainFragment fragment = new MainFragment();
         FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
-
-
 
         BA = BluetoothAdapter.getDefaultAdapter();
         /*lv = (ListView) findViewById(R.id.listView);
@@ -380,22 +373,6 @@ public class MainActivity extends AppCompatActivity
         BTOutputStream.close();
         BTSocket.close();
     }
-
-   /* new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean isInserted =  myDb.insertData(1, Double.parseDouble(mittaustulos.getText().toString()));
-                        if(isInserted = true){
-                            Toast.makeText(MainActivity.this, "Data lähetetty", Toast.LENGTH_LONG).show();
-                        }else
-                            Toast.makeText(MainActivity.this, "Datan lähetys epäonnistui", Toast.LENGTH_LONG).show();
-
-                    }
-                }
-        );
-    }*/
-
-
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
