@@ -130,8 +130,18 @@ public class MainActivity extends AppCompatActivity
 
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
     haasteButton1 = (Button) findViewById(R.id.haasteButton1);
-        
+        haasteButton1.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            public void onClick(View v) {
+                try {
+                    startChallenge();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
         //creating user
