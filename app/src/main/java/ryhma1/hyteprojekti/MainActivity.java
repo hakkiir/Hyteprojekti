@@ -131,21 +131,20 @@ public class MainActivity extends AppCompatActivity
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-    haasteButton1 = (Button) findViewById(R.id.haasteButton1);
+    haasteButton1 = (Button) findViewById().setOnClickListener(R.id.haasteButton1);
         haasteButton1.setOnClickListener(new View.OnClickListener() {
             //@Override
             public void onClick(View v) {
                 try {
-                    startChallenge();
+                    Challenge challenge1 = new Challenge();
+                    //challenge1 = startChallenge();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-
         //creating user
-
 
         List<User> users = myDb.getAllUsers();
 
@@ -153,9 +152,6 @@ public class MainActivity extends AppCompatActivity
         if(users.size() < 1){
             myDb.addUser(new User (1, "Testi", "Henkilö", 180, 80, 0, 1, 4, 12));
         }
-
-
-
 
         //creating challenges if doesn't exist
         List<Challenge> challenges =  myDb.getAllChallenges();
@@ -174,10 +170,7 @@ public class MainActivity extends AppCompatActivity
 /*
         TextView haaste1 = (TextView) findViewById(R.id.haaste1);
         haaste1.setText("Tähän haasteen tiedot");*/
-
 }
-
-
 
     public void startChallenge() {
         Challenge challenge = new Challenge();
