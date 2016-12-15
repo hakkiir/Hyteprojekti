@@ -67,23 +67,23 @@ public class ChallengesFragment extends Fragment {
         int taso5 = challenge5.getChallengeLevel();
         TextView haaste5 = (TextView) view.findViewById(R.id.haaste5);
 
-        haaste.setText("Haaste: " + name + "\n" +
+        haaste.setText("Tehtävä: " + name + "\n" +
                 "Mittauskerrat: " + kerrat + "\n" +
                 "Pisteet: " + pisteet + "\n" +
                 "Taso: " + taso + "");
-        haaste2.setText("Haaste: " + name2 + "\n" +
+        haaste2.setText("Tehtävä: " + name2 + "\n" +
                 "Mittauskerrat: " + kerrat2 + "\n" +
                 "Pisteet: " + pisteet2 + "\n" +
                 "Taso: " + taso2 + "");
-        haaste3.setText("Haaste: " + name3 + "\n" +
+        haaste3.setText("Tehtävä: " + name3 + "\n" +
                 "Mittauskerrat: " + kerrat3 + "\n" +
                 "Pisteet: " + pisteet3 + "\n" +
                 "Taso: " + taso3 + "");
-        haaste4.setText("Haaste: " + name4 + "\n" +
+        haaste4.setText("Tehtävä: " + name4 + "\n" +
                 "Mittauskerrat: " + kerrat4 + "\n" +
                 "Pisteet: " + pisteet4 + "\n" +
                 "Taso: " + taso4 + "");
-        haaste5.setText("Haaste: " + name5 + "\n" +
+        haaste5.setText("Tehtävä: " + name5 + "\n" +
                 "Mittauskerrat: " + kerrat5 + "\n" +
                 "Pisteet: " + pisteet5 + "\n" +
                 "Taso: " + taso5 + "");

@@ -415,4 +415,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             return true;
     }
 
+    public void deleteActive(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String deleteActive = "TRUNCATE TABLE "+ACTIVE_TABLE+" ";
+
+        Cursor cursor = db.rawQuery(deleteActive, null);
+
+    }
+
 }

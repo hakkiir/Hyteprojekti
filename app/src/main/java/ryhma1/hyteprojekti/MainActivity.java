@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    /*      User datan napista lisäämisen logiikka
+    /*
 
             public void AddUserData(){
                 addUserDataButton.setOnClickListener(
@@ -187,13 +187,14 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        if (id == 1) {
+        if (id == 1 & myDb.checkActive() == false) {
             myDb.makeActive(user.getUserID(), challenge.getChallengeID());
             while (activityUser < activityChallenge) {
-                activityUser = activityUser + activityUser;
-            }
 
-        }
+            } myDb.deleteActive();
+
+        }else
+            Toast.makeText(MainActivity.this, "Aikaisempi haaste kesken", Toast.LENGTH_LONG).show();
         switch (level) {
             case 1:
                 while (durationUser < durationChallenge || activityUser < activityChallenge || data.size()<1) {

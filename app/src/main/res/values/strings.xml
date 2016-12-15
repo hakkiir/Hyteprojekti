@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Blood Sugar App </string>
+    <string name="app_name">Blood Sugar Challenges</string>
     //navigation open
     <string name="open_nav">Open</string>
     //navigation close

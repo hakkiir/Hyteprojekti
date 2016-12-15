@@ -6,7 +6,7 @@
 
 
     <TextView
-        android:text="Aktiiviset haasteet"
+        android:text="Aktiivinen tehtävä:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -51,5 +51,17 @@
         android:layout_marginEnd="27dp"
         android:id="@+id/addData"
         android:background="@color/colorPrimary" />
+
+    <TextView
+        android:text="Ei tehtävää aktiivisena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menu_challenges"
+        android:layout_alignStart="@+id/menu_challenges"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="22dp"
+        android:id="@+id/textView3"
+        android:textSize="24sp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
 </RelativeLayout>

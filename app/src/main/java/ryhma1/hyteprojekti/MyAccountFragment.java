@@ -44,7 +44,7 @@ public class MyAccountFragment extends Fragment {
                 "Pituus: "+height+"\n" +
                 "Paino: "+weight+"\n" +
                 "Pisteet: "+points+"\n" +
-                "Taso: "+level+"\n " +
+                "Taso: "+level+"\n" +
                 "Rajat: "+bound1+" - "+bound2+" ");
 
 
