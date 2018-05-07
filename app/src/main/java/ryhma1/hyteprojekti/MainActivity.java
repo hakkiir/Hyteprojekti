@@ -1,5 +1,6 @@
 package ryhma1.hyteprojekti;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -23,6 +25,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.database.sqlite.*;
 
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +59,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     DatabaseHelper myDb;
+
     Button haasteButton1;
 
     private BluetoothAdapter BA;    /*Luodaan Bluetooth adapteri*/
@@ -81,6 +85,7 @@ public class MainActivity extends AppCompatActivity
     static final int READ_BLOCK_SIZE = 100;
     private static final String FORMAT = "%02d:%02d:%02d";
     int seconds, minutes;
+    private Context activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,9 +136,6 @@ public class MainActivity extends AppCompatActivity
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     haasteButton1 = (Button) findViewById(R.id.haasteButton1);
-        
-
-
         //creating user
 
 
@@ -143,9 +145,6 @@ public class MainActivity extends AppCompatActivity
         if(users.size() < 1){
             myDb.addUser(new User (1, "Testi", "Henkilö", 180, 80, 0, 1, 4, 12));
         }
-
-
-
 
         //creating challenges if doesn't exist
         List<Challenge> challenges =  myDb.getAllChallenges();
@@ -161,15 +160,92 @@ public class MainActivity extends AppCompatActivity
         }
 
         myDb.addNormalValues(new NormalValues(4, 7));
-/*
-        TextView haaste1 = (TextView) findViewById(R.id.haaste1);
-        haaste1.setText("Tähän haasteen tiedot");*/
 
 }
 
+    public void startChallenge(int id, LayoutInflater inflater, ViewGroup container,
+                               Bundle savedInstanceState) {
+
+        final User user = myDb.getUser(1);
+        final Challenge challenge = myDb.getChallenge(id);
+        String nameChallenge = challenge.getChallengename();
+        int points = challenge.getChallengePoints();
+        final int durationChallenge = challenge.getDuration();
+        final int activityChallenge = challenge.getActivity();
+        String clock = challenge.getClock();
+        double min = user.getBound1();
+        double max = user.getBound2();
+        int level = user.getLevel();
+        final ArrayList data = new ArrayList();
+        final int activityUser = 1;
+
+        final int durationUser = 1; // tähän jotain
 
 
-    public void startChallenge(int id) {
+        haasteButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                while (durationUser < durationChallenge || activityUser < activityChallenge || data.size() < 1) {
+                    myDb.makeActive(user.getUserID(), challenge.getChallengeID());
+                }}});
+
+        View view = inflater.inflate(R.layout.fragment_challenges, container, false);
+        final DatabaseHelper db = new DatabaseHelper(getActivity());
+
+        final Challenge challenge1 = db.getChallenge(1);
+        String name1 = challenge1.getChallengename();
+        int kerrat1 = challenge1.getActivity();
+        int pisteet1 = challenge1.getChallengePoints();
+        int taso1 = challenge1.getChallengeLevel();
+        TextView haaste1 = (TextView) view.findViewById(R.id.haaste1);
+
+        Challenge challenge2 = db.getChallenge(2);
+        String name2 = challenge2.getChallengename();
+        int kerrat2 = challenge2.getActivity();
+        int pisteet2 = challenge2.getChallengePoints();
+        int taso2 = challenge2.getChallengeLevel();
+        TextView haaste2 = (TextView) view.findViewById(R.id.haaste2);
+
+        Challenge challenge3 = db.getChallenge(3);
+        String name3 = challenge3.getChallengename();
+        int kerrat3 = challenge3.getActivity();
+        int pisteet3 = challenge3.getChallengePoints();
+        int taso3 = challenge3.getChallengeLevel();
+        TextView haaste3 = (TextView) view.findViewById(R.id.haaste3);
+
+        Challenge challenge4 = db.getChallenge(4);
+        String name4 = challenge4.getChallengename();
+        int kerrat4 = challenge4.getActivity();
+        int pisteet4 = challenge4.getChallengePoints();
+        int taso4 = challenge4.getChallengeLevel();
+        TextView haaste4 = (TextView) view.findViewById(R.id.haaste4);
+
+        Challenge challenge5 = db.getChallenge(5);
+        String name5 = challenge5.getChallengename();
+        int kerrat5 = challenge5.getActivity();
+        int pisteet5 = challenge5.getChallengePoints();
+        int taso5 = challenge5.getChallengeLevel();
+        TextView haaste5 = (TextView) view.findViewById(R.id.haaste5);
+
+
+
+        /*
+        if (id == 1 & myDb.checkActive() == false) {
+            myDb.makeActive(user.getUserID(), challenge.getChallengeID());
+            while (activityUser < activityChallenge) {
+
+            }
+            myDb.deleteActive();
+
+        } else
+            Toast.makeText(MainActivity.this, "Aikaisempi haaste kesken", Toast.LENGTH_LONG).show();
+        */
+
+    }
+
+
+    public void active(int id, LayoutInflater inflater, ViewGroup container,
+                       Bundle savedInstanceState){
         User user = myDb.getUser(1);
         Challenge challenge = myDb.getChallenge(id);
         String nameChallenge = challenge.getChallengename();
@@ -183,43 +259,28 @@ public class MainActivity extends AppCompatActivity
         ArrayList data = new ArrayList();
         int activityUser = data.size();
 
-        int durationUser = 0; // tähän jotain
+        int durationUser = 10; // tähän jotain
 
-
-
-        if (id == 1 & myDb.checkActive() == false) {
-            myDb.makeActive(user.getUserID(), challenge.getChallengeID());
-            while (activityUser < activityChallenge) {
-
-            } myDb.deleteActive();
-
-        }else
-            Toast.makeText(MainActivity.this, "Aikaisempi haaste kesken", Toast.LENGTH_LONG).show();
         switch (level) {
             case 1:
-                while (durationUser < durationChallenge || activityUser < activityChallenge || data.size()<1) {
-
+                while (durationUser < durationChallenge || activityUser < activityChallenge || data.size() < 1) {
+                    myDb.makeActive(user.getUserID(), challenge.getChallengeID());
                 }
                 break;
             case 2:
                 while (durationUser != durationChallenge || activityUser != activityChallenge) {
-
+                    myDb.makeActive(user.getUserID(), challenge.getChallengeID());
                 }
                 break;
             case 3:
                 while (durationUser != durationChallenge || activityUser != activityChallenge) {
-
+                    myDb.makeActive(user.getUserID(), challenge.getChallengeID());
                 }
                 break;
             default:
+                Toast.makeText(MainActivity.this, "Aikaisempi haaste kesken", Toast.LENGTH_LONG).show();
                 break;
         }
-    }
-
-
-    public void active(){
-
-
     }
 
 
@@ -382,6 +443,10 @@ public class MainActivity extends AppCompatActivity
         BTInputStream.close();
         BTOutputStream.close();
         BTSocket.close();
+    }
+
+    public Context getActivity() {
+        return activity;
     }
 
     /**

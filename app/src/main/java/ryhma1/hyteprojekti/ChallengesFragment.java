@@ -88,18 +88,14 @@ public class ChallengesFragment extends Fragment {
                 "Pisteet: " + pisteet5 + "\n" +
                 "Taso: " + taso5 + "");
 
-        haasteButton1 = (Button)view.findViewById(R.id.haasteButton1);
+        /*haasteButton1 = (Button)view.findViewById(R.id.haasteButton1);
 
         haasteButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((MainActivity)getActivity()).startChallenge(1);
             }
-        });
-
-
-
-
+        });*/
 
          /*
 
